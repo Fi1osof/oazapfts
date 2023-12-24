@@ -741,7 +741,12 @@ export default class ApiGenerator {
     with a new name adding a number
   */
   getTrueEnum(schema: SchemaObject, propName: string) {
-    const proposedName = schema.title || _.upperFirst(propName);
+    propName = (propName + "-enum")
+      .split("-")
+      .map((n) => _.upperFirst(n))
+      .join("")
+
+    const proposedName = schema.title || propName;
     const stringEnumValue = this.getEnumValuesString(
       schema.enum ? schema.enum : [],
     );
